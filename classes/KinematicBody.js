@@ -1,0 +1,3 @@
+class KinematicBody extends Body {
+
+}
