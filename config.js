@@ -1,3 +1,3 @@
 const config = {
-  gravity: 9.8
+  gravity: 0.098
 }
