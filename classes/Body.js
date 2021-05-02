@@ -1,10 +1,13 @@
 class Body {
-  constructor (x, y, w, h, color) {
-    this.x = x
-    this.y = y
-    this.w = w
-    this.h = h
-    this.color = color
+  constructor (config) {
+    this.x = config.x || 0
+    this.y = config.y || 0
+    this.w = config.w || 100
+    this.h = config.h || 100
+    this.color = config.color || ''
+  }
+
+  process () {
   }
 
   draw (ctx) {
