@@ -1,5 +1,9 @@
-class Body {
+/* globals Node */
+
+class Body extends Node {
   constructor (config) {
+    super(config)
+    this.type = 'Body'
     this.x = config.x || 0
     this.y = config.y || 0
     this.w = config.w || 100

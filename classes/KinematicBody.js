@@ -3,6 +3,7 @@
 class KinematicBody extends Body {
   constructor (config) {
     super(config)
+    this.type = 'KinematicBody'
     this.vX = config.vX || 0
     this.vY = config.vY || 0
   }
@@ -12,7 +13,12 @@ class KinematicBody extends Body {
   }
 
   checkCollisions (bodies) {
-    let collision = false
+    const collisionData = {
+      up: null,
+      down: null,
+      left: null,
+      right: null
+    }
     bodies.forEach(body => {
       if (body === this) return
       if (!( // this needs to be fixed!
@@ -32,5 +38,21 @@ class KinematicBody extends Body {
       this.x += this.vX
       this.y += this.vY
     } else this.vY = 0
+  }
+
+  checkCollisionUp (body, collisionData) {
+    if (body.y < this.y && body.y + body.h > this.y) {
+      this.y = body.y + body.h
+      this.vY = 0
+      collisionData.up = body
+    }
+  }
+
+  checkCollisionDown (body, collisionData) {
+    if (body.y > this.y && body.y < this.y + this.h) {
+      this.y = body.y - this.h
+      this.vY = 0
+      collisionData.down = body
+    }
   }
 }
