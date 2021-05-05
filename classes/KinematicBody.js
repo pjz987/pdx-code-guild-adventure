@@ -22,9 +22,9 @@ class KinematicBody extends Body {
     bodies.forEach(body => {
       if (body === this) return
       if (!( // this needs to be fixed!
-        body.x < this.x ||
-        body.y < this.y ||
-        body.x + body.w > this.x + this.w ||
+        body.x < this.x &&
+        body.y < this.y &&
+        body.x + body.w > this.x + this.w &&
         body.y + body.h > this.y + this.h
       )) collision = true
     })
@@ -40,19 +40,28 @@ class KinematicBody extends Body {
     } else this.vY = 0
   }
 
-  checkCollisionUp (body, collisionData) {
-    if (body.y < this.y && body.y + body.h > this.y) {
-      this.y = body.y + body.h
-      this.vY = 0
-      collisionData.up = body
-    }
-  }
+  // checkAlignVert (body) {
 
-  checkCollisionDown (body, collisionData) {
-    if (body.y > this.y && body.y < this.y + this.h) {
-      this.y = body.y - this.h
-      this.vY = 0
-      collisionData.down = body
-    }
-  }
+  // }
+
+  // checkCollisionUp (body, collisionData) {
+  //   if (body.y < this.y && body.y + body.h > this.y) {
+  //     this.y = body.y + body.h
+  //     this.vY = 0
+  //     collisionData.up = body
+  //   }
+  // }
+
+  // checkCollisionDown (body, collisionData) {
+  //   if (body.y > this.y && body.y < this.y + this.h) {
+  //     this.y = body.y - this.h
+  //     this.vY = 0
+  //     collisionData.down = body
+  //   }
+  // }
+
+  // checkCollisionLeft (body, collisionData) {
+  //   if (body) {
+  //   }
+  // }
 }
