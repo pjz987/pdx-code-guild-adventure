@@ -8,60 +8,36 @@ class KinematicBody extends Body {
     this.vY = config.vY || 0
   }
 
-  process (bodies) {
-    this.move(bodies)
+  process (bodies, input) {
+    this.checkCollisions(bodies)
+    this.move(input)
   }
 
   checkCollisions (bodies) {
-    const collisionData = {
-      up: null,
-      down: null,
-      left: null,
-      right: null
-    }
+    let changeColor = false
     bodies.forEach(body => {
       if (body === this) return
-      if (!( // this needs to be fixed!
-        body.x < this.x &&
-        body.y < this.y &&
-        body.x + body.w > this.x + this.w &&
-        body.y + body.h > this.y + this.h
-      )) collision = true
+      if (this.aabbCollision(body)) changeColor = true
     })
-    return collision
+    if (changeColor) this.color = 'red'
+    else this.color = 'green'
   }
 
-  move (bodies) {
-    console.log(this.checkCollisions(bodies))
-    if (this.checkCollisions(bodies) === false) {
-      this.vY += config.gravity
-      this.x += this.vX
-      this.y += this.vY
-    } else this.vY = 0
+  /* Axis-Aligned Bounding Box Collision */
+  aabbCollision (body) { // https://kishimotostudios.com/articles/aabb_collision/
+    return !(
+      this.position.x + this.dimensions.x < body.position.x || // this is to the left of body
+      this.position.x > body.position.x + body.dimensions.x || // this is to the right of body
+      this.position.y + this.dimensions.y < body.position.y || // this is above body
+      this.position.y > body.position.y + body.dimensions.y // this is below body
+    )
   }
 
-  // checkAlignVert (body) {
-
-  // }
-
-  // checkCollisionUp (body, collisionData) {
-  //   if (body.y < this.y && body.y + body.h > this.y) {
-  //     this.y = body.y + body.h
-  //     this.vY = 0
-  //     collisionData.up = body
-  //   }
-  // }
-
-  // checkCollisionDown (body, collisionData) {
-  //   if (body.y > this.y && body.y < this.y + this.h) {
-  //     this.y = body.y - this.h
-  //     this.vY = 0
-  //     collisionData.down = body
-  //   }
-  // }
-
-  // checkCollisionLeft (body, collisionData) {
-  //   if (body) {
-  //   }
-  // }
+  move (input) {
+    if (input.w) this.position.y -= 10
+    if (input.a) this.position.x -= 10
+    if (input.s) this.position.y += 10
+    if (input.d) this.position.x += 10
+    if (input.space) console.log('jump')
+  }
 }
