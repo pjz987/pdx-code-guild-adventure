@@ -8,18 +8,22 @@ const ctx = cnv.getContext('2d')
 ctx.fillStyle = '#36F7E7'
 ctx.fillRect(0, 0, cnv.width, cnv.height)
 
-const brickW = 120
-const brickH = 20
+const bodyWidth = 100
 
-const player = new KinematicBody({
-  x: Math.random() * cnv.width,
-  y: Math.random() * cnv.height,
-  w: brickH,
-  h: brickW,
+const player = new Player({
+  x: cnv.width / 2 - 50,
+  y: cnv.height / 2 - 50,
+  width: bodyWidth,
+  height: bodyWidth,
   color: '#34A844'
 })
 
-const bricks = []
+const bricks = [
+  new Body({ x: 100, y: 100, width: bodyWidth, height: bodyWidth, color: '#ffa346' }),
+  new Body({ x: 100, y: cnv.height - 200, width: bodyWidth, height: bodyWidth, color: '#ffa346' }),
+  new Body({ x: cnv.width - 200, y: 100, width: bodyWidth, height: bodyWidth, color: '#ffa346' }),
+  new Body({ x: cnv.width - 200, y: cnv.height - 200, width: bodyWidth, height: bodyWidth, color: '#ffa346' })
+]
 
 /* Input Booleans */
 let w
@@ -27,27 +31,19 @@ let a
 let s
 let d
 let space
+let q
 
-for (let i = 0; i < 10; i++) {
-  bricks.push(new Body({
-    x: Math.random() * cnv.width,
-    y: Math.random() * cnv.height,
-    w: brickW,
-    h: brickH,
-    color: '#FFA346'
-  }))
-}
 
 const nodes = bricks.concat(player)
 
-function play (time) {
+function play (_time) {
   const input = { w, a, s, d, space }
   ctx.clearRect(0, 0, cnv.width, cnv.height)
   ctx.fillStyle = '#36F7E7'
   ctx.fillRect(0, 0, cnv.width, cnv.height)
   nodes.forEach(node => node.process(nodes, input))
   nodes.forEach(node => node.draw(ctx))
-  requestAnimationFrame(time => play(time))
+  if (!q) requestAnimationFrame(time => play(time))
 }
 
 play()
@@ -58,6 +54,7 @@ document.addEventListener('keydown', event => {
   else if (event.key === 's') s = true
   else if (event.key === 'd') d = true
   else if (event.key === ' ') space = true
+  else if (event.key === 'q') q = true
 })
 
 document.addEventListener('keyup', event => {
@@ -66,4 +63,5 @@ document.addEventListener('keyup', event => {
   else if (event.key === 's') s = false
   else if (event.key === 'd') d = false
   else if (event.key === ' ') space = false
+  else if (event.key === 'q') q = false
 })
