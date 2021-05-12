@@ -34,10 +34,10 @@ class KinematicBody extends Body {
   }
 
   move (input) {
-    if (input.w) this.position.y -= 10
-    if (input.a) this.position.x -= 10
-    if (input.s) this.position.y += 10
-    if (input.d) this.position.x += 10
+    if (input.w) this.position.y -= 6
+    if (input.a) this.position.x -= 6
+    if (input.s) this.position.y += 6
+    if (input.d) this.position.x += 6
     if (input.space) console.log('jump')
   }
 }
