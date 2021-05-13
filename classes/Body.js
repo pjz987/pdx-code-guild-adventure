@@ -8,14 +8,10 @@ class Body extends Node {
       x: config.x || 0,
       y: config.y || 0
     })
-    // this.x = config.x || 0
-    // this.y = config.y || 0
     this.dimensions = new Vector2({
       x: config.width || 100,
       y: config.height || 100
     })
-    // this.w = config.w || 100
-    // this.h = config.h || 100
     this.color = config.color || ''
   }
 

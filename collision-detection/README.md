@@ -10,9 +10,9 @@ Essentially, AABB Collilsion checks 4 things:
 If the answer to all 4 of these questions is "No", then the objects are colliding.  In 3D space, you also check to see if the objects are in front of/behind one another (the z axis).  Kishimoto Studios has a great [example](https://kishimotostudios.com/articles/aabb_collision/) of this.
 
 ```js
-class Player extends KinematicBody {
+class KinematicBody extends Body {
 
-  /* Other Player methods... */
+  /* Other KinematicBody methods... */
 
   /* Axis-Aligned Bounding Box Collision */
   aabbCollision (body) { // https://kishimotostudios.com/articles/aabb_collision/
