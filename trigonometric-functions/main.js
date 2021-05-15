@@ -4,7 +4,7 @@ const cnv = document.querySelector('canvas')
 const ctx = cnv.getContext('2d')
 
 const sin = new Sine({
-  x: 136,
+  x: 104,
   y: 236
 })
 
@@ -14,7 +14,7 @@ const cos = new Cosine({
 })
 
 const tan = new Tangent({
-  x: 536,
+  x: 568,
   y: 236
 })
 
