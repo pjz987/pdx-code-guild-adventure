@@ -19,19 +19,27 @@ class Body extends Node {
   }
 
   draw (ctx) {
-    ctx.beginPath()
-    ctx.fillStyle = this.color
-    ctx.fillRect(
-      this.position.x,
-      this.position.y,
-      this.dimensions.x,
-      this.dimensions.y
-    )
-    ctx.strokeRect(
-      this.position.x,
-      this.position.y,
-      this.dimensions.x,
-      this.dimensions.y
-    )
+    if (this.sprite != undefined) {
+      ctx.drawImage(
+        this.sprite.source,
+        this.position.x,
+        this.position.y
+      )
+    } else {
+      ctx.beginPath()
+      ctx.fillStyle = this.color
+      ctx.fillRect(
+        this.position.x,
+        this.position.y,
+        this.dimensions.x,
+        this.dimensions.y
+      )
+      ctx.strokeRect(
+        this.position.x,
+        this.position.y,
+        this.dimensions.x,
+        this.dimensions.y
+      )
+    }
   }
 }

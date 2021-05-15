@@ -1,5 +1,5 @@
 class Sprite {
   constructor (config) {
-    this.texture = config.texture
+    this.source = config.source
   }
 }

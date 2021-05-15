@@ -6,6 +6,7 @@ class KinematicBody extends Body {
     this.type = 'KinematicBody'
     this.vX = config.vX || 0
     this.vY = config.vY || 0
+    this.detectCollision = config.detectCollision || false
   }
 
   process (bodies, input) {
