@@ -9,20 +9,17 @@ class KinematicBody extends Body {
     this.detectCollision = config.detectCollision || false
   }
 
-  process (bodies, input) {
-    // this.checkCollisions(bodies)
-    // this.move(input)
+  process () {
   }
 
-  // checkCollisions (bodies) {
-  //   let changeColor = false
-  //   bodies.forEach(body => {
-  //     if (body === this) return
-  //     if (this.aabbCollision(body)) changeColor = true
-  //   })
-  //   if (changeColor) this.color = 'red'
-  //   else this.color = 'green'
-  // }
+  checkCollisions (bodies) {
+    const collisions = []
+    bodies.forEach(body => {
+      if (body === this) return
+      if (this.aabbCollision(body)) collisions.push(body)
+    })
+    return collisions
+  }
 
   /* Axis-Aligned Bounding Box Collision */
   aabbCollision (body) { // https://kishimotostudios.com/articles/aabb_collision/
@@ -33,12 +30,4 @@ class KinematicBody extends Body {
       this.position.y > body.position.y + body.dimensions.y // this is below body
     )
   }
-
-  // move (input) {
-  //   if (input.w) this.position.y -= 6
-  //   if (input.a) this.position.x -= 6
-  //   if (input.s) this.position.y += 6
-  //   if (input.d) this.position.x += 6
-  //   if (input.space) console.log('jump')
-  // }
 }
