@@ -13,12 +13,9 @@ class KinematicBody extends Body {
   }
 
   checkCollisions (bodies) {
-    const collisions = []
-    bodies.forEach(body => {
-      if (body === this) return
-      if (this.aabbCollision(body)) collisions.push(body)
-    })
-    return collisions
+    return bodies
+      .filter(body => body != this) // the body is not this KinematicBody
+      .filter(body => this.aabbCollision(body)) // the body is colliding with this KinematicBody
   }
 
   /* Axis-Aligned Bounding Box Collision */
@@ -29,5 +26,14 @@ class KinematicBody extends Body {
       this.position.y + this.dimensions.y < body.position.y || // this is above body
       this.position.y > body.position.y + body.dimensions.y // this is below body
     )
+  }
+
+  aabbDetail (body, position=this.position) {
+    return {
+      left: position.x + this.dimensions.x < body.position.x,
+      right: position.x > body.position.x + body.dimensions.x,
+      up: position.y + this.dimensions.y < body.position.y,
+      down: position.y > body.position.y + body.dimensions.y
+    }
   }
 }

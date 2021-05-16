@@ -19,12 +19,39 @@ const player = new Player({
 })
 
 const scene = new Scene({
+  ctx,
   nodes: [...blocks, player]
 })
 
+/* Input Booleans */
+let w = false
+let a = false
+let s = false
+let d = false
+let space = false
+
 function main (time=0) {
-  scene.loop(time, ctx)
+  const input = { w, a, s, d, space }
+  scene.loop(time, input)
   requestAnimationFrame(time => main(time))
 }
 
 main()
+
+/* set inputs to true on 'keydown' */
+document.addEventListener('keydown', event => {
+  if (event.key === 'w') w = true
+  else if (event.key === 'a') a = true
+  else if (event.key === 's') s = true
+  else if (event.key === 'd') d = true
+  else if (event.key === ' ') space = true
+})
+
+/* set inputs to false on 'keyup' */
+document.addEventListener('keyup', event => {
+  if (event.key === 'w') w = false
+  else if (event.key === 'a') a = false
+  else if (event.key === 's') s = false
+  else if (event.key === 'd') d = false
+  else if (event.key === ' ') space = false
+})

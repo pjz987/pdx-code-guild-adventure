@@ -6,10 +6,11 @@ class Scene {
       y: config.height || 600
     })
     this.backgroundColor = config.backgroundColor || '#36f7e7'
-    this.time = config.time || 0
+    // this.time = config.time || 0
+    this.ctx = config.ctx
   }
 
-  loop (time, ctx, input) {
+  loop (time, input) {
     /* wipe the canvas */
     ctx.clearRect(
       0,
@@ -35,6 +36,6 @@ class Scene {
     }))
 
     /* call each node's draw method */
-    this.nodes.forEach(node => node.draw(ctx))
+    this.nodes.forEach(node => node.draw(this.ctx))
   }
 }
