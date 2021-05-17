@@ -36,4 +36,20 @@ class KinematicBody extends Body {
       down: position.y > body.position.y + body.dimensions.y
     }
   }
+
+  defaultHandleCollision (node, lastPosition) {
+    const lastFrameAabb = this.aabbDetail(node, lastPosition)
+    if (lastFrameAabb.up === true) {
+      this.position.y = node.position.y - node.dimensions.y - 0.001
+    }
+    if (lastFrameAabb.down === true) {
+      this.position.y = node.position.y + node.dimensions.y + 0.001
+    }
+    if (lastFrameAabb.left === true) {
+      this.position.x = node.position.x - node.dimensions.x - 0.001
+    }
+    if (lastFrameAabb.right === true) {
+      this.position.x = node.position.x + node.dimensions.x + 0.001
+    }
+  }
 }

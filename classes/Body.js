@@ -13,19 +13,27 @@ class Body extends Node {
       y: config.height || 100
     })
     this.color = config.color || ''
+    this.hide = config.hide
   }
 
   process () {
   }
 
   draw (ctx) {
+    /* if an object is meant to be hidden, return to exit the method */
+    if (this.hide === true) return
+
+    /* if an object has a sprite, use the ctx.drawImage() method */
     if (this.sprite != undefined) {
       ctx.drawImage(
         this.sprite.source,
         this.position.x,
         this.position.y
       )
-    } else {
+    }
+    
+    /* otherwise, use ctx.fillRect() and ctx.strokeRect() */
+    else {
       ctx.beginPath()
       ctx.fillStyle = this.color
       ctx.fillRect(

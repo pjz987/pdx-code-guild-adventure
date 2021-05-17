@@ -14,7 +14,7 @@ class Player extends KinematicBody {
     const collidingNodes = this.checkCollisions(data.nodes)
     collidingNodes.forEach(node => {
       // console.log(this.aabbDetail(node, lastPosition))
-      this.handleCollision(node, lastPosition)
+      this.defaultHandleCollision(node, lastPosition)
       // console.log(collision)
       // console.log(this.position.minus(collision.position))
     })

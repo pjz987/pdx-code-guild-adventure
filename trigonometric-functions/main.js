@@ -19,6 +19,7 @@ const tan = new Tangent({
 })
 
 const scene = new Scene({
+  ctx,
   nodes: [sin, cos, tan]
 })
 
