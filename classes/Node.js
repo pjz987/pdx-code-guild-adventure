@@ -1,9 +1,12 @@
 /* globals Sprite */
 
+const idGeneratorFunc = (num=0) => () => num++
+const idGenerator = idGeneratorFunc()
+
 class Node {
-  constructor (config) {
+  constructor (_config) {
     this.type = 'Node'
-    // this.sprite = config.sprite ?
+    this.id = idGenerator()
   }
 
   process () {

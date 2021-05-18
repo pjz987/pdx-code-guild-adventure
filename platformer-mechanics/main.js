@@ -5,9 +5,9 @@ const ctx = cnv.getContext('2d')
 
 const blocks = [
   new Block({ x: -100,      y: 0,          height: cnv.height, hide: true }), // left wall
-  new Block({ x: 0,         y: -100,       width: cnv.width, hide: true }), // ceiling
+  new Block({ x: 0,         y: -100,       width:  cnv.width,  hide: true }), // ceiling
   new Block({ x: cnv.width, y: 0,          height: cnv.height, hide: true }), // right wall
-  new Block({ x: -100,      y: cnv.height, width: cnv.width, hide: true }), // floor
+  new Block({ x: 0,         y: cnv.height, width:  cnv.width,  hide: true }), // floor
 ]
 
 const player = new Player({

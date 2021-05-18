@@ -1,15 +1,14 @@
-/* globals config Body */
+/* globals config Body Vector2 */
 
 class KinematicBody extends Body {
   constructor (config) {
     super(config)
     this.type = 'KinematicBody'
-    this.vX = config.vX || 0
-    this.vY = config.vY || 0
+    this.velocity = new Vector2({
+      x: config.velocityX || 0,
+      y: config.velocityY || 0
+    })
     this.detectCollision = config.detectCollision || false
-  }
-
-  process () {
   }
 
   checkCollisions (bodies) {
@@ -40,16 +39,42 @@ class KinematicBody extends Body {
   defaultHandleCollision (node, lastPosition) {
     const lastFrameAabb = this.aabbDetail(node, lastPosition)
     if (lastFrameAabb.up === true) {
+      this.velocity.y = 0
       this.position.y = node.position.y - node.dimensions.y - 0.001
     }
     if (lastFrameAabb.down === true) {
+      this.velocity.y = 0
       this.position.y = node.position.y + node.dimensions.y + 0.001
     }
     if (lastFrameAabb.left === true) {
+      this.velocity.x = 0
       this.position.x = node.position.x - node.dimensions.x - 0.001
     }
     if (lastFrameAabb.right === true) {
+      this.velocity.x = 0
       this.position.x = node.position.x + node.dimensions.x + 0.001
     }
   }
+
+  createTestBody (offset) {
+    const testBody = new KinematicBody({
+      x: offset.x
+        ? this.position.x + offset.x
+        : this.position.x,
+      y: offset.y
+        ? this.position.y + offset.y
+        : this.position.y,
+      width: this.dimensions.x,
+      height: this.dimensions.y
+    })
+    return testBody
+  }
+
+  // testCollisionDown (nodes) {
+  //   const testBody = new KinematicBody({
+  //     position: new Vector2({
+
+  //     })
+  //   })
+  // }
 }
