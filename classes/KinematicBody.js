@@ -40,7 +40,7 @@ class KinematicBody extends Body {
     const lastFrameAabb = this.aabbDetail(node, lastPosition)
     if (lastFrameAabb.up === true) {
       this.velocity.y = 0
-      this.position.y = node.position.y - node.dimensions.y - 0.001
+      this.position.y = node.position.y - this.dimensions.y - 0.001
     }
     if (lastFrameAabb.down === true) {
       this.velocity.y = 0
@@ -48,7 +48,7 @@ class KinematicBody extends Body {
     }
     if (lastFrameAabb.left === true) {
       this.velocity.x = 0
-      this.position.x = node.position.x - node.dimensions.x - 0.001
+      this.position.x = node.position.x - this.dimensions.x - 0.001
     }
     if (lastFrameAabb.right === true) {
       this.velocity.x = 0
@@ -70,11 +70,12 @@ class KinematicBody extends Body {
     return testBody
   }
 
-  // testCollisionDown (nodes) {
-  //   const testBody = new KinematicBody({
-  //     position: new Vector2({
-
-  //     })
-  //   })
-  // }
+  createTestBodyByDirection(direction) {
+    const offset = {}
+    if (direction === 'up')    offset.y = -0.002
+    if (direction === 'down')  offset.y =  0.002
+    if (direction === 'left')  offset.x = -0.002
+    if (direction === 'right') offset.x =  0.002
+    return this.createTestBody(offset)
+  }
 }

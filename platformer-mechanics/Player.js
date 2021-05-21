@@ -19,7 +19,6 @@ class Player extends KinematicBody {
     this.applyGravity()
     this.move()
     const collidingNodes = this.checkCollisions(data.nodes)
-    
     collidingNodes.forEach(node => {
       // if (data.input.s === true) console.log(node)
       this.defaultHandleCollision(node, lastPosition)
@@ -60,15 +59,11 @@ class Player extends KinematicBody {
   jumpCheck (input, bodies, lastPosition) {
     /* jumping */
     if (input.space === true || input.w === true) {
-      const testBody = this.createTestBody({
-        x: 0,
-        y: 0.002
-      })
+      const testBody = this.createTestBodyByDirection('down')
       // console.log(testBody)
       const testCollidingBodies = testBody.checkCollisions(bodies).filter(body => body !== this)
       console.log(testCollidingBodies)
       testCollidingBodies.forEach(body => {
-        console.log(testBody.aabbDetail(body))
         if (testBody.aabbDetail(body).down === false) this.velocity.y -= this.jumpForce
       })
     }
