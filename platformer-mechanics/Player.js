@@ -1,4 +1,4 @@
-/* globals KinematicBody */
+/* globals KinematicBody Vector2 */
 
 class Player extends KinematicBody {
   constructor (config) {
@@ -6,13 +6,13 @@ class Player extends KinematicBody {
     this.gravity = 1
     this.acceleration = 1
     this.maxSpeed = 5
-    this.jumpForce = 20
+    this.jumpForce = 22.5
   }
 
   process (data) {
     const lastPosition = new Vector2({
       x: this.position.x,
-      y: this.position.y,
+      y: this.position.y
     })
     this.applyHorizontalInput(data.input, data.nodes, lastPosition)
     this.jumpCheck(data.input, data.nodes, lastPosition)
@@ -55,7 +55,7 @@ class Player extends KinematicBody {
       }
     }
   }
-  
+
   jumpCheck (input, bodies, lastPosition) {
     /* jumping */
     if (input.space === true || input.w === true) {

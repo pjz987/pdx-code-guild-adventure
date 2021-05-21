@@ -4,19 +4,63 @@ const cnv = document.querySelector('canvas')
 const ctx = cnv.getContext('2d')
 
 const blocks = [
-  new Block({ x: -100,      y: 0,          height: cnv.height, hide: true }), // left wall
-  new Block({ x: 0,         y: -100,       width:  cnv.width,  hide: true }), // ceiling
-  new Block({ x: cnv.width, y: 0,          height: cnv.height, hide: true }), // right wall
-  new Block({ x: 0,         y: cnv.height, width:  cnv.width,  hide: true }), // floor
+  new Block({ // left wall
+    x: -100,
+    y: 0,
+    height: cnv.height,
+    hide: true
+  }),
+  new Block({ // ceiling
+    x: 0,
+    y: -100,
+    width: cnv.width,
+    hide: true
+  }),
+  new Block({ // right wall
+    x: cnv.width,
+    y: 0,
+    height: cnv.height,
+    hide: true
+  }),
+  new Block({ // floor
+    x: 0,
+    y: cnv.height,
+    width: cnv.width,
+    hide: true
+  }),
 
-  new Block({ x: 300, y: cnv.height - 200, width: 200, height: 50 })
+  // platorms
+  new Block({
+    x: 312.5,
+    y: cnv.height - 150,
+    width: 175,
+    height: 50
+  }),
+  new Block({
+    x: 312.5,
+    y: 125,
+    width: 175,
+    height: 50
+  }),
+  new Block({
+    x: 100,
+    y: 287.5,
+    width: 175,
+    height: 50
+  }),
+  new Block({
+    x: cnv.width - 287.5,
+    y: 287.5,
+    width: 175,
+    height: 50
+  })
 ]
 
 const player = new Player({
   x: cnv.width / 2 - 50,
   y: cnv.height / 2 - 50,
-  width: 100,
-  height: 100,
+  width: 75,
+  height: 75,
   color: '#34A844'
 })
 
@@ -25,10 +69,10 @@ const scene = new Scene({
   nodes: [...blocks, player] // initialize scene nodes above and include them in this array
 })
 
-function main (time=0) {
+function main (time = 0) {
   const input = { space, w, a, s, d, up, down, left, right }
   scene.loop(time, input)
-  requestAnimationFrame(time => main(time)) 
+  requestAnimationFrame(time => main(time))
 }
 
 /* Input Booleans */
