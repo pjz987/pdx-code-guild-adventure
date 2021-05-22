@@ -1,12 +1,13 @@
 /* globals Sprite */
 
-const idGeneratorFunc = (num=0) => () => num++
+const idGeneratorFunc = (num = 0) => () => num++
 const idGenerator = idGeneratorFunc()
 
 class Node {
-  constructor (_config) {
+  constructor (config) {
     this.type = 'Node'
     this.id = idGenerator()
+    this.scene = config.scene
   }
 
   process () {

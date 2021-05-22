@@ -1,4 +1,4 @@
-/* globals Player Block */
+/* globals Scene Player Block Enemy */
 
 const cnv = document.querySelector('canvas')
 const ctx = cnv.getContext('2d')
@@ -64,14 +64,25 @@ const player = new Player({
   color: '#34A844'
 })
 
-const scene = new Scene({
-  ctx, // give the scene the animation rendering context
-  nodes: [...blocks, player] // initialize scene nodes above and include them in this array
+const enemy = new Enemy({
+  x: cnv.width / 2 - 75,
+  y: cnv.height - 75,
+  width: 150,
+  height: 75,
+  color: '#b930cf'
 })
 
+const scene = new Scene({
+  ctx, // give the scene the animation rendering context
+  nodes: [...blocks, player, enemy] // initialize scene nodes above and include them in this array
+})
+
+scene.init()
+
 function main (time = 0) {
-  const input = { space, w, a, s, d, up, down, left, right }
+  const input = { space, w, a, s, d, up, down, left, right, q }
   scene.loop(time, input)
+  if (input.q) return
   window.requestAnimationFrame(time => main(time))
 }
 
@@ -85,6 +96,7 @@ let up
 let down
 let left
 let right
+let q
 
 /* set inputs to true on 'keydown' */
 document.addEventListener('keydown', event => {
@@ -98,6 +110,7 @@ document.addEventListener('keydown', event => {
   if (event.key === 'ArrowDown') down = true
   if (event.key === 'ArrowLeft') left = true
   if (event.key === 'ArrowRight') right = true
+  if (event.key === 'q') q = true
 })
 
 /* set inputs to false on 'keyup' */
@@ -111,7 +124,7 @@ document.addEventListener('keyup', event => {
   if (event.key === 'ArrowUp') up = false
   if (event.key === 'ArrowDown') down = false
   if (event.key === 'ArrowLeft') left = false
-  if (event.key === 'ArrowRight') right = false
+  if (event.key === 'q') q = false
 })
 
 main()

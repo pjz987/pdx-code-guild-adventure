@@ -10,6 +10,12 @@ class Scene {
     this.ctx = config.ctx
   }
 
+  init () {
+    this.nodes.forEach(node => {
+      node.scene = this
+    })
+  }
+
   loop (time, input) {
     /* wipe the canvas */
     ctx.clearRect(

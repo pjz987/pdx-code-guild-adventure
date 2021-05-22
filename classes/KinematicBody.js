@@ -20,14 +20,14 @@ class KinematicBody extends Body {
   /* Axis-Aligned Bounding Box Collision */
   aabbCollision (body) { // https://kishimotostudios.com/articles/aabb_collision/
     return !(
-      this.position.x + this.dimensions.x < body.position.x || // this is to the left of body
-      this.position.x > body.position.x + body.dimensions.x || // this is to the right of body
-      this.position.y + this.dimensions.y < body.position.y || // this is above body
-      this.position.y > body.position.y + body.dimensions.y // this is below body
+      this.position.x + this.dimensions.x < body.position.x || // this box is to the left of body
+      this.position.x > body.position.x + body.dimensions.x || // this box is to the right of body
+      this.position.y + this.dimensions.y < body.position.y || // this box is above body
+      this.position.y > body.position.y + body.dimensions.y // this box is below body
     )
   }
 
-  aabbDetail (body, position=this.position) {
+  aabbDetail (body, position = this.position) {
     return {
       left: position.x + this.dimensions.x < body.position.x,
       right: position.x > body.position.x + body.dimensions.x,
