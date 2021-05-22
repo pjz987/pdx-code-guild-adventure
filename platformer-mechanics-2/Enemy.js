@@ -16,18 +16,18 @@ class Enemy extends KinematicBody {
       y: this.dimensions.y / 2,
       name: 'raycastRight'
     })
-    this.raycastLeftDown = new FakeRaycast({ // left collide check
-      parent: this,
-      x: -5,
-      y: this.dimensions.y + 5,
-      name: 'raycastLeftDown'
-    })
-    this.raycastRightDown = new FakeRaycast({
-      parent: this,
-      x: 5 + this.dimensions.x,
-      y: this.dimensions.y + 5,
-      name: 'raycastRightDown'
-    })
+    // this.raycastLeftDown = new FakeRaycast({ // left collide check
+    //   parent: this,
+    //   x: -5,
+    //   y: this.dimensions.y + 5,
+    //   name: 'raycastLeftDown'
+    // })
+    // this.raycastRightDown = new FakeRaycast({
+    //   parent: this,
+    //   x: 5 + this.dimensions.x,
+    //   y: this.dimensions.y + 5,
+    //   name: 'raycastRightDown'
+    // })
     this.fakeRaycasts = [
       this.raycastLeft,
       this.raycastRight,
@@ -35,7 +35,7 @@ class Enemy extends KinematicBody {
       // this.raycastRightDown
     ]
     this.facing = config.facing || 'left'
-    this.turnedAround = false
+    // this.turnedAround = false
   }
 
   process (data) {
@@ -52,15 +52,6 @@ class Enemy extends KinematicBody {
   }
 
   checkRaycasts () {
-    // for (let i = 0; i < this.fakeRaycasts.length; i++) {
-    //   const raycast = this.fakeRaycasts[i]
-    //   raycast.updatePosition()
-    //   raycast.checkCollision(this.scene.nodes, collision => {
-    //     this.resolveRaycast(collision, raycast)
-    //   })
-    //   // if (this.turnedAround === true) break
-    // }
-
     this.fakeRaycasts.forEach(raycast => {
       raycast.updatePosition()
       raycast.checkCollision(this.scene.nodes, collision => {
@@ -71,25 +62,29 @@ class Enemy extends KinematicBody {
 
   resolveRaycast (collision, raycast) {
     // console.log(raycast.parent.id)
-    if (this.turnedAround === true) return
-
-    if (collision.collision === true && this.facing === 'left') {
-      if (raycast.name === 'raycastLeft') {
-        this.facing = 'right'
-        this.turnedAround = true
-      } else if (raycast.name === 'raycastRight' && this.facing === 'right') {
-        this.facing = 'left'
-        this.turnedAround = true
-      }
-    } else if (collision.collision === false) {
-      if (raycast.name === 'raycastLeftDown' && this.facing === 'left') {
-        this.facing = 'right'
-        this.turnedAround = true
-      } else if (raycast.name === 'raycastRightDown' && this.facing === 'right') {
-        this.facing = 'left'
-        this.turnedAround = true
-      }
+    // if (this.turnedAround === true) return
+    if (collision.collision === true) {
+      if (this.facing === 'right' && raycast.name === 'raycastRight') this.facing = 'left'
+      else if (this.facing === 'left' && raycast.name === 'raycastLeft') this.facing = 'right'
     }
+
+    // if (collision.collision === true && this.facing === 'left') {
+    //   if (raycast.name === 'raycastLeft') {
+    //     this.facing = 'right'
+    //     // this.turnedAround = true
+    //   } else if (raycast.name === 'raycastRight' && this.facing === 'right') {
+    //     this.facing = 'left'
+    //     // this.turnedAround = true
+    //   }
+    // } else if (collision.collision === false) {
+    //   if (raycast.name === 'raycastLeftDown' && this.facing === 'left') {
+    //     this.facing = 'right'
+    //     // this.turnedAround = true
+    //   } else if (raycast.name === 'raycastRightDown' && this.facing === 'right') {
+    //     this.facing = 'left'
+    //     // this.turnedAround = true
+    //   }
+    // }
   }
 
   move () {

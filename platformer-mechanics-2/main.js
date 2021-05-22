@@ -88,9 +88,44 @@ const enemies = [
   })
 ]
 
+const enemyBumpers = [
+  new Block({
+    x: 80,
+    y: 212.5,
+    width: 20,
+    height: 75,
+    hide: true,
+    collideWith: 'Enemy'
+  }),
+  new Block({
+    x: 275,
+    y: 212.5,
+    width: 20,
+    height: 75,
+    hide: true,
+    collideWith: 'Enemy'
+  }),
+  new Block({
+    x: cnv.width - 307.5,
+    y: 212.5,
+    width: 20,
+    height: 75,
+    hide: true,
+    collideWith: 'Enemy'
+  }),
+  new Block({
+    x: cnv.width - 112.5,
+    y: 212.5,
+    width: 20,
+    height: 75,
+    hide: true,
+    collideWith: 'Enemy'
+  }),
+]
+
 const scene = new Scene({
   ctx, // give the scene the animation rendering context
-  nodes: [...blocks, player, ...enemies] // initialize scene nodes above and include them in this array
+  nodes: [...blocks, player, ...enemies, ...enemyBumpers] // initialize scene nodes above and include them in this array
 })
 
 scene.init()

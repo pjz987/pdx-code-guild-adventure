@@ -14,6 +14,7 @@ class Body extends Node {
     })
     this.color = config.color || ''
     this.hide = config.hide
+    this.collideWith = config.collideWith
   }
 
   process () {
