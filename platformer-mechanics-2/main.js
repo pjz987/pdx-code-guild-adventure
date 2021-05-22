@@ -30,25 +30,25 @@ const blocks = [
   }),
 
   // platorms
-  new Block({
+  new Block({ // bottom
     x: 312.5,
     y: cnv.height - 150,
     width: 175,
     height: 50
   }),
-  new Block({
+  new Block({ // top
     x: 312.5,
     y: 125,
     width: 175,
     height: 50
   }),
-  new Block({
+  new Block({ // left
     x: 100,
     y: 287.5,
     width: 175,
     height: 50
   }),
-  new Block({
+  new Block({ // right
     x: cnv.width - 287.5,
     y: 287.5,
     width: 175,
@@ -64,17 +64,33 @@ const player = new Player({
   color: '#34A844'
 })
 
-const enemy = new Enemy({
-  x: cnv.width / 2 - 75,
-  y: cnv.height - 75,
-  width: 150,
-  height: 75,
-  color: '#b930cf'
-})
+const enemies = [
+  new Enemy({ // wide floor enemy
+    x: cnv.width / 2 - 75,
+    y: cnv.height - 75,
+    width: 150,
+    height: 75,
+    color: '#b930cf'
+  }),
+  new Enemy({ // left platform enemy
+    x: 100,
+    y: 212.5,
+    width: 82.5,
+    height: 75,
+    facing: 'right'
+  }),
+  new Enemy({ // right platform enemy
+    x: cnv.width - 182.5,
+    y: 212.5,
+    width: 82.5,
+    height: 75,
+    facing: 'left'
+  })
+]
 
 const scene = new Scene({
   ctx, // give the scene the animation rendering context
-  nodes: [...blocks, player, enemy] // initialize scene nodes above and include them in this array
+  nodes: [...blocks, player, ...enemies] // initialize scene nodes above and include them in this array
 })
 
 scene.init()
@@ -128,3 +144,8 @@ document.addEventListener('keyup', event => {
 })
 
 main()
+
+cnv.addEventListener('click', event => console.log(
+  { x: event.clientX, y: event.clientY },
+  scene
+))

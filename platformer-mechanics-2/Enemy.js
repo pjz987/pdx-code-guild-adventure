@@ -16,14 +16,30 @@ class Enemy extends KinematicBody {
       y: this.dimensions.y / 2,
       name: 'raycastRight'
     })
+    this.raycastLeftDown = new FakeRaycast({ // left collide check
+      parent: this,
+      x: -5,
+      y: this.dimensions.y + 5,
+      name: 'raycastLeftDown'
+    })
+    this.raycastRightDown = new FakeRaycast({
+      parent: this,
+      x: 5 + this.dimensions.x,
+      y: this.dimensions.y + 5,
+      name: 'raycastRightDown'
+    })
     this.fakeRaycasts = [
       this.raycastLeft,
-      this.raycastRight
+      this.raycastRight,
+      // this.raycastLeftDown,
+      // this.raycastRightDown
     ]
-    this.facing = 'left'
+    this.facing = config.facing || 'left'
+    this.turnedAround = false
   }
 
   process (data) {
+    this.turnedAround = false
     if (data.input.w) console.log(this.fakeRaycasts)
     const lastPosition = new Vector2({
       x: this.position.x,
@@ -36,19 +52,43 @@ class Enemy extends KinematicBody {
   }
 
   checkRaycasts () {
-    // console.log(this.scene)
+    // for (let i = 0; i < this.fakeRaycasts.length; i++) {
+    //   const raycast = this.fakeRaycasts[i]
+    //   raycast.updatePosition()
+    //   raycast.checkCollision(this.scene.nodes, collision => {
+    //     this.resolveRaycast(collision, raycast)
+    //   })
+    //   // if (this.turnedAround === true) break
+    // }
+
     this.fakeRaycasts.forEach(raycast => {
       raycast.updatePosition()
-      raycast.checkCollision(this.scene.nodes, collision => this.resolveRaycast(collision, raycast))
+      raycast.checkCollision(this.scene.nodes, collision => {
+        this.resolveRaycast(collision, raycast)
+      })
     })
   }
 
   resolveRaycast (collision, raycast) {
-    if (collision.collision) {
-      // console.log(this.fakeRaycasts)
-      // console.log(collision)
-      if (raycast.name === 'raycastLeft') this.facing = 'right'
-      else if (raycast.name === 'raycastRight') this.facing = 'left'
+    // console.log(raycast.parent.id)
+    if (this.turnedAround === true) return
+
+    if (collision.collision === true && this.facing === 'left') {
+      if (raycast.name === 'raycastLeft') {
+        this.facing = 'right'
+        this.turnedAround = true
+      } else if (raycast.name === 'raycastRight' && this.facing === 'right') {
+        this.facing = 'left'
+        this.turnedAround = true
+      }
+    } else if (collision.collision === false) {
+      if (raycast.name === 'raycastLeftDown' && this.facing === 'left') {
+        this.facing = 'right'
+        this.turnedAround = true
+      } else if (raycast.name === 'raycastRightDown' && this.facing === 'right') {
+        this.facing = 'left'
+        this.turnedAround = true
+      }
     }
   }
 
