@@ -30,7 +30,7 @@ class Enemy extends KinematicBody {
     // })
     this.fakeRaycasts = [
       this.raycastLeft,
-      this.raycastRight,
+      this.raycastRight
       // this.raycastLeftDown,
       // this.raycastRightDown
     ]
@@ -47,7 +47,9 @@ class Enemy extends KinematicBody {
     })
     this.move()
     this.checkCollisions(this.scene.nodes)
-      .forEach(node => this.defaultHandleCollision(node, lastPosition))
+      .forEach(node => {
+        if (node.type !== 'Player') this.defaultHandleCollision(node, lastPosition)
+      })
     this.checkRaycasts()
   }
 
@@ -63,7 +65,7 @@ class Enemy extends KinematicBody {
   resolveRaycast (collision, raycast) {
     // console.log(raycast.parent.id)
     // if (this.turnedAround === true) return
-    if (collision.collision === true) {
+    if (collision.collision === true && collision.node.type !== 'Player') {
       if (this.facing === 'right' && raycast.name === 'raycastRight') this.facing = 'left'
       else if (this.facing === 'left' && raycast.name === 'raycastLeft') this.facing = 'right'
     }

@@ -7,6 +7,7 @@ class Player extends KinematicBody {
     this.acceleration = 1
     this.maxSpeed = 5
     this.jumpForce = 22.5
+    this.type = 'Player'
   }
 
   process (data) {
