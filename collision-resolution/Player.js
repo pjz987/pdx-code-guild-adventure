@@ -1,9 +1,9 @@
-/* globals KinematicBody */
+/* globals KinematicBody Vector2 */
 
 class Player extends KinematicBody {
-  constructor (config) {
-    super(config)
-  }
+  // constructor (config) {
+  //   super(config)
+  // }
 
   process (data) {
     const lastPosition = new Vector2({
@@ -32,22 +32,16 @@ class Player extends KinematicBody {
     // console.log(lastFrameAabb, node)
     // console.log(this.position)
     if (lastFrameAabb.up === true) {
-      console.log('up')
       this.position.y = node.position.y - node.dimensions.y - 0.001
     }
     if (lastFrameAabb.down === true) {
-      console.log('down')
       this.position.y = node.position.y + node.dimensions.y + 0.001
     }
     if (lastFrameAabb.left === true) {
-      console.log('left')
       this.position.x = node.position.x - node.dimensions.x - 0.001
     }
     if (lastFrameAabb.right === true) {
-      console.log('right')
-      console.log(this.position.x)
       this.position.x = node.position.x + node.dimensions.x + 0.001
-      console.log(this.position.x)
     }
     // console.log(this.position)
     // console.log()

@@ -77,14 +77,16 @@ const enemies = [
     y: 212.5,
     width: 82.5,
     height: 75,
-    facing: 'right'
+    facing: 'right',
+    color: '#b930cf'
   }),
   new Enemy({ // right platform enemy
     x: cnv.width - 182.5,
     y: 212.5,
     width: 82.5,
     height: 75,
-    facing: 'left'
+    facing: 'left',
+    color: '#b930cf'
   })
 ]
 

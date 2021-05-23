@@ -36,11 +36,11 @@ class Enemy extends KinematicBody {
     ]
     this.facing = config.facing || 'left'
     // this.turnedAround = false
+    this.type = 'Enemy'
   }
 
   process (data) {
     this.turnedAround = false
-    if (data.input.w) console.log(this.fakeRaycasts)
     const lastPosition = new Vector2({
       x: this.position.x,
       y: this.position.y

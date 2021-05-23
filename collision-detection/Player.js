@@ -39,6 +39,6 @@ class Player extends KinematicBody {
     if (input.a) this.position.x -= 6
     if (input.s) this.position.y += 6
     if (input.d) this.position.x += 6
-    if (input.space) console.log('jump')
+    if (input.space)
   }
 }

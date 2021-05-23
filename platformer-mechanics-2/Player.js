@@ -21,9 +21,15 @@ class Player extends KinematicBody {
     const collidingNodes = this.checkCollisions(data.nodes)
     collidingNodes.forEach(node => {
       if (node.collideWith !== undefined) return
-      // if (data.input.s === true) console.log(node)
-      this.defaultHandleCollision(node, lastPosition)
+      if (node.type === 'Enemy') this.handleEnemyCollision(node, lastPosition)
+      else this.defaultHandleCollision(node, lastPosition)
     })
+  }
+
+  handleEnemyCollision (enemy, lastPosition) {
+    const lastFrameAabb = this.aabbDetail(enemy, lastPosition)
+    if (lastFrameAabb.up === true) this.kill(enemy)
+    else this.die()
   }
 
   move () {
@@ -65,12 +71,27 @@ class Player extends KinematicBody {
       const testCollidingBodies = testBody.checkCollisions(bodies).filter(body => body !== this).filter(body => body.collideWith === undefined)
       // console.log(testCollidingBodies)
       testCollidingBodies.forEach(body => {
-        if (testBody.aabbDetail(body).down === false) this.velocity.y -= this.jumpForce
+        if (testBody.aabbDetail(body).down === false) this.jump()
       })
     }
   }
 
+  jump (mult = 1) {
+    this.velocity.y = -this.jumpForce * mult
+  }
+
   applyGravity () {
     this.velocity.y += this.gravity
+  }
+
+  die () {
+    const index = this.scene.nodes.indexOf(this)
+    this.scene.nodes.splice(index, 1)
+  }
+
+  kill (enemy) {
+    const index = this.scene.nodes.indexOf(enemy)
+    this.scene.nodes.splice(index, 1)
+    this.jump()
   }
 }

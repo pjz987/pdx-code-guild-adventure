@@ -12,7 +12,7 @@ class Body extends Node {
       x: config.width || 100,
       y: config.height || 100
     })
-    this.color = config.color || ''
+    this.color = config.color || 'grey'
     this.hide = config.hide
     this.collideWith = config.collideWith
   }
@@ -25,14 +25,14 @@ class Body extends Node {
     if (this.hide === true) return
 
     /* if an object has a sprite, use the ctx.drawImage() method */
-    if (this.sprite != undefined) {
+    if (this.sprite !== undefined) {
       ctx.drawImage(
         this.sprite.source,
         this.position.x,
         this.position.y
       )
     }
-    
+
     /* otherwise, use ctx.fillRect() and ctx.strokeRect() */
     else {
       ctx.beginPath()

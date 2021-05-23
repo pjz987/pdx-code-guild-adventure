@@ -1,4 +1,4 @@
-/* globals config Body Vector2 */
+/* globals Body Vector2 */
 
 class KinematicBody extends Body {
   constructor (config) {
@@ -13,7 +13,7 @@ class KinematicBody extends Body {
 
   checkCollisions (bodies) {
     return bodies
-      .filter(body => body != this) // the body is not this KinematicBody
+      .filter(body => body !== this) // the body is not this KinematicBody
       .filter(body => this.aabbCollision(body)) // the body is colliding with this KinematicBody
   }
 
@@ -70,12 +70,12 @@ class KinematicBody extends Body {
     return testBody
   }
 
-  createTestBodyByDirection(direction) {
+  createTestBodyByDirection (direction) {
     const offset = {}
-    if (direction === 'up')    offset.y = -0.002
-    if (direction === 'down')  offset.y =  0.002
-    if (direction === 'left')  offset.x = -0.002
-    if (direction === 'right') offset.x =  0.002
+    if (direction === 'up') offset.y = -0.002
+    if (direction === 'down') offset.y = 0.002
+    if (direction === 'left') offset.x = -0.002
+    if (direction === 'right') offset.x = 0.002
     return this.createTestBody(offset)
   }
 }
