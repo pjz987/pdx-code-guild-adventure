@@ -1,3 +1,5 @@
+/* globals Vector2 */
+
 class Scene {
   constructor (config) {
     this.nodes = config.nodes || [] // this.nodes is an array all the nodes in the scene
@@ -18,7 +20,7 @@ class Scene {
 
   loop (time, input) {
     /* wipe the canvas */
-    ctx.clearRect(
+    this.ctx.clearRect(
       0,
       0,
       this.dimensions.x,
@@ -26,8 +28,8 @@ class Scene {
     )
 
     /* fill in the background */
-    ctx.fillStyle = this.backgroundColor
-    ctx.fillRect(
+    this.ctx.fillStyle = this.backgroundColor
+    this.ctx.fillRect(
       0,
       0,
       this.dimensions.x,

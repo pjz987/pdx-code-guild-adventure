@@ -15,6 +15,7 @@ class Body extends Node {
     this.color = config.color || 'grey'
     this.hide = config.hide
     this.collideWith = config.collideWith
+    this.collideable = true
   }
 
   process () {
@@ -26,11 +27,25 @@ class Body extends Node {
 
     /* if an object has a sprite, use the ctx.drawImage() method */
     if (this.sprite !== undefined) {
-      ctx.drawImage(
-        this.sprite.source,
-        this.position.x,
-        this.position.y
-      )
+      if (this.sprite.type === 'AnimatedSprite') {
+        ctx.drawImage(
+          this.sprite.source,
+          this.sprite.frameWidth * this.sprite.currentFrame,
+          0,
+          this.sprite.frameWidth,
+          this.sprite.source.height,
+          this.position.x,
+          this.position.y,
+          this.sprite.frameWidth,
+          this.sprite.source.height
+        )
+      } else {
+        ctx.drawImage(
+          this.sprite.source,
+          this.position.x,
+          this.position.y
+        )
+      }
     }
 
     /* otherwise, use ctx.fillRect() and ctx.strokeRect() */
