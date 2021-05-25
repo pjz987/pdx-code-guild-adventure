@@ -1,12 +1,7 @@
-/* globals config Body KinematicBody requestAnimationFrame */
+/* globals Player Body Scene */
 
 const cnv = document.querySelector('canvas')
 const ctx = cnv.getContext('2d')
-// const w = cnv.width
-// const h = cnv.height
-
-ctx.fillStyle = '#36F7E7'
-ctx.fillRect(0, 0, cnv.width, cnv.height)
 
 const bodyWidth = 100
 
@@ -25,28 +20,20 @@ const bricks = [
   new Body({ x: cnv.width - 200, y: cnv.height - 200, width: bodyWidth, height: bodyWidth, color: '#ffa346' })
 ]
 
-/* Input Booleans */
-let w
-let a
-let s
-let d
-let space
-let q
-
-
 const nodes = bricks.concat(player)
 
-function play (_time) {
-  const input = { w, a, s, d, space }
-  ctx.clearRect(0, 0, cnv.width, cnv.height)
-  ctx.fillStyle = '#36F7E7'
-  ctx.fillRect(0, 0, cnv.width, cnv.height)
-  nodes.forEach(node => node.process(nodes, input))
-  nodes.forEach(node => node.draw(ctx))
-  if (!q) requestAnimationFrame(time => play(time))
-}
+const scene = new Scene({
+  nodes,
+  ctx
+})
 
-play()
+/* Input Booleans */
+let w = false
+let a = false
+let s = false
+let d = false
+let space = false
+let q = false
 
 document.addEventListener('keydown', event => {
   if (event.key === 'w') w = true
@@ -65,3 +52,11 @@ document.addEventListener('keyup', event => {
   else if (event.key === ' ') space = false
   else if (event.key === 'q') q = false
 })
+
+function play (time) {
+  const input = { w, a, s, d, space }
+  scene.loop(time, input)
+  if (!q) window.requestAnimationFrame(time => play(time))
+}
+
+play()

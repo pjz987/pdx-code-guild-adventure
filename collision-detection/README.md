@@ -1,4 +1,90 @@
-# AABB Collision
+# User Inputs and AABB Collision
+
+## Scene Initialization
+Before jumping into these other concepts, let's take a quick look at how a scene is initialized:
+
+```js
+const cnv = document.querySelector('canvas') // the canvas element
+const ctx = cnv.getContext('2d') // the animation context
+// https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+
+const bodyWidth = 100
+
+const player = new Player({ // instantiate a player
+  x: cnv.width / 2 - 50,
+  y: cnv.height / 2 - 50,
+  width: bodyWidth,
+  height: bodyWidth,
+  color: '#34A844'
+})
+
+const bricks = [ // instantiate 4 bricks
+  new Body({ x: 100, y: 100, width: bodyWidth, height: bodyWidth, color: '#ffa346' }),
+  new Body({ x: 100, y: cnv.height - 200, width: bodyWidth, height: bodyWidth, color: '#ffa346' }),
+  new Body({ x: cnv.width - 200, y: 100, width: bodyWidth, height: bodyWidth, color: '#ffa346' }),
+  new Body({ x: cnv.width - 200, y: cnv.height - 200, width: bodyWidth, height: bodyWidth, color: '#ffa346' })
+]
+
+const scene = new Scene({ // instantiate the scene
+  nodes: [...bricks, player] // with the nodes
+  ctx // and context
+})
+```
+
+The 4 bricks are instances of the `Body` class.  `Body` extends `Node` and has a `dimensions` property (`Vector2`) to keep track of height and width.
+
+## User Inputs
+
+JavaScript is a multi-paradigm programming languages.  One of those paradigms is the event-driven paradigm, not unlike the [Observer Pattern](https://gameprogrammingpatterns.com/observer.html) used in games.  In JavaScript, we can make the `document` listen to [keyboard events](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent):
+
+```js
+/* Input Booleans */
+// declare the input booleans so they're
+// accessible in the following functions 
+let w = false
+let a = false
+let s = false
+let d = false
+let space = false
+let q = false
+
+/* on the 'keydown' event, check the event's
+key property and set that boolean to true */
+document.addEventListener('keydown', event => {
+  if (event.key === 'w') w = true
+  else if (event.key === 'a') a = true
+  else if (event.key === 's') s = true
+  else if (event.key === 'd') d = true
+  else if (event.key === ' ') space = true
+  else if (event.key === 'q') q = true
+})
+
+/* on the 'keyup' event, check the event's
+key proerty and set that boolean to false */
+document.addEventListener('keyup', event => {
+  if (event.key === 'w') w = false
+  else if (event.key === 'a') a = false
+  else if (event.key === 's') s = false
+  else if (event.key === 'd') d = false
+  else if (event.key === ' ') space = false
+  else if (event.key === 'q') q = false
+})
+
+function play (time) {
+  /* pass the inputs to the scene
+  loop in an input object */
+  const input = { w, a, s, d, space }
+  scene.loop(time, input)
+  if (!q) window.requestAnimationFrame(time => play(time))
+}
+
+play()
+```
+
+But it's not just keyboard events you could pass as inputs.  The [mouse event](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent) could just as easily be utilized for user inputs.  In fact, it's `event.clientX` and `event.clientY` properties would give you the exact coordinates on the canvas of a mouse event.
+
+## AABB Collision
+
 Axis-Aligned Bounding Box Collision (or AABB Collision) is one of the simplest collision-detection algorithms.  It works if the objects are axis-aligned (not rotated) and have a bounding box collision shape (in 2D space, their bounding boxes are squares or rectangles, with 90 degree angles).
 
 Essentially, AABB Collilsion checks 4 things:

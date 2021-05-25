@@ -11,7 +11,7 @@ class KinematicBody extends Body {
     this.detectCollision = config.detectCollision || false
   }
 
-  checkCollisions (bodies) {
+  checkCollisions (bodies = this.scene.nodes) {
     return bodies
       .filter(body => body !== this) // the body is not this KinematicBody
       .filter(body => this.aabbCollision(body)) // the body is colliding with this KinematicBody
