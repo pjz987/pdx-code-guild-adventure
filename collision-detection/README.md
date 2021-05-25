@@ -81,6 +81,26 @@ function play (time) {
 play()
 ```
 
+Now let's take a look at the `Player` class.  But first a quick note: in this game engine, `Player` is not a built-in class.  It is always a unique user-defined class that extends `KinematicBody`.  Most of these examples use a `Player` class but none of they are all different, as they've been coded for different purposes.  Let's look at some of the methods of this `Player` class:
+
+```js
+  process (data) {
+    /* data = { input, time} */
+    this.checkCollisions(this.scene.nodes) // we'll come back to this later
+    this.move(data.input)
+  }
+
+  move (input) { /* move takes that object of input booleans
+    and alters the position of the object based on which
+    are true */
+    if (input.w === true) this.position.y -= 6
+    if (input.a === true) this.position.x -= 6
+    if (input.s === true) this.position.y += 6
+    if (input.d === true) this.position.x += 6
+  }
+}
+```
+
 But it's not just keyboard events you could pass as inputs.  The [mouse event](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent) could just as easily be utilized for user inputs.  In fact, it's `event.clientX` and `event.clientY` properties would give you the exact coordinates on the canvas of a mouse event.
 
 ## AABB Collision
@@ -112,3 +132,19 @@ class KinematicBody extends Body {
 }
 
 ```
+
+So the `Player` class has access to the `aabbCollision` method.  Let's take a look at that `checkCollisions` method it calls in `process`:
+
+```js
+  checkCollisions (bodies) {
+    let isColliding = false
+    bodies.forEach(body => {
+      if (body === this) return
+      if (this.aabbCollision(body)) isColliding = true
+    })
+    if (isColliding === true) this.color = '#F54B7E'
+    else this.color = '#94D48C'
+  }
+```
+
+All this `Player` class will do is change it's color based ont whether or not it's colliding with one of the bricks, but collision resolution can often be more complicated than that.
