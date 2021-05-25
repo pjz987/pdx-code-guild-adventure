@@ -2,6 +2,7 @@
 
 class Scene {
   constructor (config) {
+    this.type = 'Scene'
     this.nodes = config.nodes || [] // this.nodes is an array all the nodes in the scene
     this.dimensions = new Vector2({
       x: config.width || 800,
@@ -9,7 +10,7 @@ class Scene {
     })
     this.backgroundColor = config.backgroundColor || '#36f7e7'
     // this.time = config.time || 0
-    this.ctx = config.ctx
+    this.ctx = config.ctx // this.ctx is the 2D animation context for the Canvas API
   }
 
   init () {

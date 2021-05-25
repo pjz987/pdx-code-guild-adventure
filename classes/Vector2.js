@@ -20,4 +20,8 @@ class Vector2 {
       y: this.y + vector2.y
     })
   }
+
+  normalize () {
+    // coming soon
+  }
 }

@@ -1,4 +1,4 @@
-/* globals Player Block */
+/* globals Player Block Scene */
 
 const cnv = document.querySelector('canvas')
 const ctx = cnv.getContext('2d')
@@ -33,7 +33,7 @@ let space = false
 function main (time=0) {
   const input = { w, a, s, d, space }
   scene.loop(time, input)
-  requestAnimationFrame(time => main(time))
+  window.requestAnimationFrame(time => main(time))
 }
 
 main()

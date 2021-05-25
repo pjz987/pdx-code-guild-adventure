@@ -4,16 +4,16 @@ class Body extends Node {
   constructor (config) {
     super(config)
     this.type = 'Body'
-    this.position = new Vector2({
-      x: config.x || 0,
-      y: config.y || 0
-    })
+    // this.position = new Vector2({
+    //   x: config.x || 0,
+    //   y: config.y || 0
+    // })
     this.dimensions = new Vector2({
       x: config.width || 100,
       y: config.height || 100
     })
     this.color = config.color || 'grey'
-    this.hide = config.hide
+    this.hide = config.hide || false
     this.collideWith = config.collideWith
     this.collideable = true
   }
