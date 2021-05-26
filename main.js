@@ -1,4 +1,4 @@
-/* globals config Body KinematicBody requestAnimationFrame */
+/* globals Body KinematicBody requestAnimationFrame */
 
 const cnv = document.querySelector('canvas')
 const ctx = cnv.getContext('2d')
