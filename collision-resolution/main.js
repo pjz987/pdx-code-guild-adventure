@@ -30,7 +30,7 @@ let s = false
 let d = false
 let space = false
 
-function main (time=0) {
+function main (time = 0) {
   const input = { w, a, s, d, space }
   scene.loop(time, input)
   window.requestAnimationFrame(time => main(time))

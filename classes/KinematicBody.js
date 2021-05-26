@@ -8,7 +8,7 @@ class KinematicBody extends Body {
       x: config.velocityX || 0,
       y: config.velocityY || 0
     })
-    this.detectCollision = config.detectCollision || false
+    this.detectCollision = config.detectCollision || true
   }
 
   checkCollisions (bodies = this.scene.nodes) {
