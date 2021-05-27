@@ -1,5 +1,6 @@
 /* globals Node Vector2 */
 
+/* Node > Body */
 class Body extends Node {
   constructor (config) {
     super(config)

@@ -1,5 +1,6 @@
 /* globals Body Vector2 */
 
+/* Node > Body > KinematicBody */
 class KinematicBody extends Body {
   constructor (config) {
     super(config)

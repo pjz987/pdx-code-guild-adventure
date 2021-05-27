@@ -1,5 +1,6 @@
 /* globals Body */
 
+/* Node > Body > StaticBody */
 class StaticBody extends Body {
   constructor (config) {
     super(config)
