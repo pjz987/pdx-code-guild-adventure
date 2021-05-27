@@ -53,3 +53,8 @@ User Interfaces, like menus and a HUD, are planned to be added to this engine.
 
 ## A Note on Assets
 These sample games use pixel art PNGs created with [Aseprite](https://www.aseprite.org/).  However, any [browser-supported image format](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#supported_image_formats) can also be used in this engine.  There are lots of free assets for 2D games available online on sites like [itchi.io](https://itch.io/game-assets/free/tag-pixel-art).
+
+Created by Pete Jones
+[peterwilliamjones.com](https://peterwilliamjones.com)
+Demo Project Playable Here:
+[peterwilliamjones.com/pdx-code-guild-adventure](https://peterwilliamjones.com/pdx-code-guild-adventure)
