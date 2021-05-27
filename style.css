@@ -5,6 +5,11 @@ html {
   box-sizing: inherit;
 }
 
+* {
+  font-family: 'Raleway', sans-serif;
+  font-size: medium;
+}
+
 body {
   width: 100vw;
   height: 100vh;
@@ -12,6 +17,7 @@ body {
   justify-content: center;
   align-items: center;
   background-color: #A9AFE0;
+  flex-direction: column;
 }
 
 canvas {

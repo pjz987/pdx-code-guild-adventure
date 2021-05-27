@@ -39,8 +39,8 @@ class Enemy extends KinematicBody {
     this.type = 'Enemy'
   }
 
-  process (data) {
-    this.turnedAround = false
+  process (_data) {
+    // this.turnedAround = false
     const lastPosition = new Vector2({
       x: this.position.x,
       y: this.position.y
@@ -63,6 +63,7 @@ class Enemy extends KinematicBody {
   }
 
   resolveRaycast (collision, raycast) {
+    // collision = { node, collision: true/false, detail: object of collision detail by direction }
     // console.log(raycast.parent.id)
     // if (this.turnedAround === true) return
     if (collision.collision === true && collision.node.type !== 'Player') {

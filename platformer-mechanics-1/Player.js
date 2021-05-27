@@ -15,7 +15,7 @@ class Player extends KinematicBody {
       y: this.position.y
     })
     this.applyHorizontalInput(data.input, data.nodes, lastPosition)
-    this.jumpCheck(data.input, data.nodes, lastPosition)
+    this.jumpCheck(data.input, data.nodes)
     this.applyGravity()
     this.move()
     const collidingNodes = this.checkCollisions(data.nodes)
@@ -37,15 +37,12 @@ class Player extends KinematicBody {
       if (this.velocity.x < -this.maxSpeed) {
         this.velocity.x = -this.maxSpeed
       }
-    } else if (input.d == true || input.right === true) {
+    } else if (input.d === true || input.right === true) {
       this.velocity.x += this.acceleration
       if (this.velocity.x > this.maxSpeed) {
         this.velocity.x = this.maxSpeed
       }
-    }
-
-    /* if not, slow down the player */
-    else {
+    } else { /* if not, slow down the player */
       if (this.velocity.x < 0) {
         this.velocity.x += this.acceleration
         if (this.velocity.x > 0) this.velocity.x = 0
@@ -56,20 +53,24 @@ class Player extends KinematicBody {
     }
   }
 
-  jumpCheck (input, bodies, lastPosition) {
+  jumpCheck (input, bodies) {
     /* jumping */
     if (input.space === true || input.w === true) {
       const testBody = this.createTestBodyByDirection('down')
-      // console.log(testBody)
-      const testCollidingBodies = testBody.checkCollisions(bodies).filter(body => body !== this)
-      // console.log(testCollidingBodies)
-      testCollidingBodies.forEach(body => {
-        if (testBody.aabbDetail(body).down === false) this.velocity.y -= this.jumpForce
-      })
+      const testCollidingBodies = testBody.checkCollisions(bodies)
+        .filter(body => body !== this)
+      // testCollidingBodies.forEach(body => {
+      //   if (testBody.aabbDetail(body).right === true) this.jump()
+      // })
+      if (testCollidingBodies.length > 0) this.jump()
     }
   }
 
   applyGravity () {
     this.velocity.y += this.gravity
+  }
+
+  jump () {
+    this.velocity.y = -this.jumpForce
   }
 }

@@ -93,6 +93,6 @@ class Player extends KinematicBody {
   kill (enemy) {
     const index = this.scene.nodes.indexOf(enemy)
     this.scene.nodes.splice(index, 1)
-    this.jump()
+    this.jump(0.75)
   }
 }
