@@ -5,6 +5,7 @@ class Block extends StaticBody {
     config.height = config.height || 100
     config.width = config.width || 100
     config.color = '#ffa346'
+    config.color = 'rgba(255, 163, 71, 0.47)'
     super(config)
   }
 }

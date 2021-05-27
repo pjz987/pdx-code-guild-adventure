@@ -1,6 +1,46 @@
 # Platformer Mechanics: Enemies
 
-Now it's time to give our player some baddies to jump on.  We'll create an `Enemy` class, which extends `KinematicBody`.  It has a `move` method, called in `process`, which runs every frame:
+## Resolving Player Collision With Enemies
+
+Now it's time to give our player some baddies to jump on.  This player's `process` method is very similar to the last one, but let's take a look at this excerpt:
+
+```js
+    const collidingNodes = this.checkCollisions(data.nodes)
+    collidingNodes.forEach(node => {
+      if (node.collideWith !== undefined) return
+      if (node.type === 'Enemy') this.handleEnemyCollision(node, lastPosition)
+      else this.defaultHandleCollision(node, lastPosition)
+    })
+```
+
+So, if a collision is detected with a `Node` of type `'Enemy'`, a different method handles collision.  Let's take a look at this player's `handleEnemyCollision` method, as well as it's two possible outcomes, `kill` and `die`:
+
+```js
+  handleEnemyCollision (enemy, lastPosition) {
+    const lastFrameAabb = this.aabbDetail(enemy, lastPosition)
+    /* if the player was above the enemy on
+    the last frame, kill the enemy */
+    if (lastFrameAabb.up === true) this.kill(enemy)
+    /* otherwise, kill the player */
+    else this.die()
+  }
+
+  die () {
+    const index = this.scene.nodes.indexOf(this)
+    this.scene.nodes.splice(index, 1)
+  }
+
+  kill (enemy) {
+    const index = this.scene.nodes.indexOf(enemy)
+    this.scene.nodes.splice(index, 1)
+    this.jump(0.75)
+  }
+```
+
+The unfortunate player or enemy is [spliced](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice) out of the scene's array of nodes.  This is a very simple way of handling enemy/player death.  A more advanced way could implement death effects or animations, change game state, or do any number of things the designer wants.
+
+## Enemy AI
+The `Enemy` class extends `KinematicBody`.  It has a `move` method, called in `process`, which runs every frame:
 
 ```js
   move () {
@@ -77,7 +117,7 @@ class FakeRaycast {
 
 Notice that these AABB methods are slightly different than the `KinematicBody` methods.  The `FakeRaycast` is just a point.  It has a `Vector2` for position, but no dimensions.  No height and width.
 
-Real raycasts are quite different.  They have a long history in games and were famously used to make old shooters like Doom and Wolfenstein 3D appear 3D even though they were drawn on a flat canvas... I think.
+Real raycasts are quite different.  They have a long history in games and were famously used to make old shooters like Doom and Wolfenstein 3D appear 3D even though they were drawn on a flat canvas and are used for collision in modern games.
 
 So, to come back to the `Enemy` class, it has these two properties defined in its `constructor`:
 

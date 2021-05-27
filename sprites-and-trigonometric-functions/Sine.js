@@ -1,4 +1,4 @@
-/* globals KinematicBody Sprite */
+/* globals KinematicBody Sprite Vector2 */
 
 class Sine extends KinematicBody {
   constructor (config) {

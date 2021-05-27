@@ -1,4 +1,4 @@
-/* globals Scene Player Block Enemy */
+/* globals Scene Player Block Enemy Sprite AnimatedSprite */
 
 const cnv = document.querySelector('canvas')
 const ctx = cnv.getContext('2d')
@@ -146,12 +146,17 @@ const enemyBumpers = [
     height: 75,
     hide: true,
     collideWith: 'Enemy'
-  }),
+  })
 ]
+
+const backgroundImage = document.querySelector('#background')
 
 const scene = new Scene({
   ctx, // give the scene the animation rendering context
-  nodes: [...blocks, player, ...enemies, ...enemyBumpers] // initialize scene nodes above and include them in this array
+  nodes: [...blocks, player, ...enemies, ...enemyBumpers], // initialize scene nodes above and include them in this array
+  sprite: new Sprite({
+    source: backgroundImage
+  })
 })
 
 scene.init()

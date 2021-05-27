@@ -11,7 +11,8 @@ class Scene {
     this.backgroundColor = config.backgroundColor || '#36f7e7'
     // this.time = config.time || 0
     this.ctx = config.ctx // this.ctx is the 2D animation context for the Canvas API
-    this.parentScentToNodes()
+    this.sprite = config.sprite || null
+    this.parentSceneToNodes()
   }
 
   init () {
@@ -20,7 +21,7 @@ class Scene {
     })
   }
 
-  parentScentToNodes () {
+  parentSceneToNodes () {
     this.nodes.forEach(node => {
       node.scene = this
     })
@@ -36,13 +37,21 @@ class Scene {
     )
 
     /* fill in the background */
-    this.ctx.fillStyle = this.backgroundColor
-    this.ctx.fillRect(
-      0,
-      0,
-      this.dimensions.x,
-      this.dimensions.y
-    )
+    if (this.sprite !== null) {
+      this.ctx.drawImage(
+        this.sprite.source,
+        0,
+        0
+      )
+    } else {
+      this.ctx.fillStyle = this.backgroundColor
+      this.ctx.fillRect(
+        0,
+        0,
+        this.dimensions.x,
+        this.dimensions.y
+      )
+    }
 
     /* call each node's process method */
     this.nodes.forEach(node => node.process({
