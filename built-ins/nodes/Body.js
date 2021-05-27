@@ -47,10 +47,8 @@ class Body extends Node {
           this.position.y
         )
       }
-    }
-
-    /* otherwise, use ctx.fillRect() and ctx.strokeRect() */
-    else {
+    } else {
+      /* otherwise, use ctx.fillRect() and ctx.strokeRect() */
       ctx.beginPath()
       ctx.fillStyle = this.color
       ctx.fillRect(
