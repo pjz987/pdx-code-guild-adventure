@@ -37,10 +37,14 @@ class Enemy extends KinematicBody {
     this.facing = config.facing || 'left'
     // this.turnedAround = false
     this.type = 'Enemy'
+    this.sprite = config.sprite
+    this.spriteLeft = config.bugSpriteLeft
+    this.spriteRight = config.bugSpriteRight
   }
 
   process (_data) {
     // this.turnedAround = false
+    this.updateSprite()
     const lastPosition = new Vector2({
       x: this.position.x,
       y: this.position.y
@@ -51,6 +55,11 @@ class Enemy extends KinematicBody {
         if (node.type !== 'Player') this.defaultHandleCollision(node, lastPosition)
       })
     this.checkRaycasts()
+  }
+
+  updateSprite () {
+    if (this.facing === 'left') this.sprite = this.spriteLeft
+    else if (this.facing === 'right') this.sprite = this.spriteRight
   }
 
   checkRaycasts () {

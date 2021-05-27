@@ -88,29 +88,50 @@ const player = new Player({
   stillSprite
 })
 
+const bugRight = document.querySelector('#bug-right')
+const bugLeft = document.querySelector('#bug-left')
+
+const bugSpriteLeft = new Sprite({
+  source: bugLeft
+})
+
+const bugSpriteRight = new Sprite({
+  source: bugRight
+})
+
 const enemies = [
   new Enemy({ // wide floor enemy
     x: cnv.width / 2 - 75,
-    y: cnv.height - 75,
-    width: 150,
-    height: 75,
-    color: '#b930cf'
+    y: cnv.height - 56,
+    width: 100,
+    height: 56,
+    color: '#b930cf',
+    sprite: bugSpriteLeft,
+    bugSpriteRight,
+    bugSpriteLeft
   }),
   new Enemy({ // left platform enemy
     x: 100,
-    y: 212.5,
-    width: 82.5,
-    height: 75,
+    y: 231.5,
+    width: 100,
+    height: 56,
     facing: 'right',
-    color: '#b930cf'
+    color: '#b930cf',
+    sprite: bugSpriteRight,
+    bugSpriteLeft,
+    bugSpriteRight
   }),
   new Enemy({ // right platform enemy
     x: cnv.width - 182.5,
-    y: 212.5,
-    width: 82.5,
-    height: 75,
+    y: 231.5,
+    width: 100,
+    height: 56,
     facing: 'left',
-    color: '#b930cf'
+    // sprite: bugLeft,
+    color: '#b930cf',
+    sprite: bugSpriteLeft,
+    bugSpriteLeft,
+    bugSpriteRight
   })
 ]
 
