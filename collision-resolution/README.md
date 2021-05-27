@@ -12,7 +12,7 @@ Usually, checking whether or not a collision has occured is only half the battle
   }
 ```
 
-This one is pretty simple.  It returns an array of every `Body` that the `KinematicBody` is collidng with, excluding itself.  You might remember there was a `checkCollisions` method in the `Player` class from the previous example.  Since that class extended `KinematicBody`, that method was overwritten.  FIX THIS IT'S DUMB!
+This one is pretty simple.  It returns an array of every `Body` that the `KinematicBody` is collidng with, excluding itself.  Then, there is an additional method for getting more info about the collision:
 
 ### `KinematicBody.aabbDetail`
 
