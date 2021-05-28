@@ -203,7 +203,6 @@ let q
 
 /* set inputs to true on 'keydown' */
 document.addEventListener('keydown', event => {
-  // event.preventDefault()
   if (event.key === ' ') space = true
   if (event.key === 'w') w = true
   if (event.key === 'a') a = true
@@ -218,7 +217,6 @@ document.addEventListener('keydown', event => {
 
 /* set inputs to false on 'keyup' */
 document.addEventListener('keyup', event => {
-  // event.preventDefault()
   if (event.key === ' ') space = false
   if (event.key === 'w') w = false
   if (event.key === 'a') a = false
@@ -227,6 +225,7 @@ document.addEventListener('keyup', event => {
   if (event.key === 'ArrowUp') up = false
   if (event.key === 'ArrowDown') down = false
   if (event.key === 'ArrowLeft') left = false
+  if (event.key === 'ArrowRight') right = false
   if (event.key === 'q') q = false
 })
 
